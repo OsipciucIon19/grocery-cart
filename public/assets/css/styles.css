@@ -1,0 +1,183 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+input, button {
+    border: none;
+    outline: none;
+}
+
+body {
+    font-size: 16pt;
+    font-family: 'Open Sans', sans-serif;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-container {
+    position: relative;
+}
+
+#navbar-background {
+    width: 429px;
+    height: 146px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+#navbar-icon {
+    width: 75px;
+    height: 75px;
+}
+
+.navbar-title {
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-title h3 {
+    font-family: "Montserrat SemiBold", sans-serif;
+    color: white;
+    padding-right: 30px;
+}
+
+.navbar-menu {
+    position: absolute;
+    top: 0;
+    width: fit-content;
+    background-color: #009f6b;
+}
+
+.menu-button {
+    position: absolute;
+    top: 120px;
+    left: 15px;
+    border-radius: 30px;
+    padding: 10px 14px 10px 13px;
+    width: fit-content;
+    background-color: #009f6b;
+    border: none;
+    cursor: pointer;
+    transition: .6s;
+}
+
+.menu-button .bi-list, .bi-x-lg {
+    color: white !important;
+}
+
+.menu-button:hover .bi-list, .bi-x-lg {
+    color: #009f6b !important;
+    transition: .5s;
+}
+
+.menu-button:hover {
+    /*color: #009f6b !important;*/
+    background-color: white;
+    transition: .5s;
+}
+
+.navbar-links {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    display: block;
+    height: 78vh;
+    width: 300px;
+    padding-top: 22vh;
+    background-color: #009766;
+    color: white;
+}
+
+.navbar-item {
+    padding: 10px 0 10px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background .6s;
+}
+
+.navbar-item a {
+    display: block;
+}
+
+span.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 800ms linear;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.navbar-links li:hover {
+    background-color: #009f6b;
+    transition: .3s;
+}
+
+.menu-toggle {
+    background-color: white;
+    margin-left: 350px;
+    transition: .6s;
+    transform: rotate(180deg);
+}
+
+.menu-toggle:hover {
+    background-color: #dff1eb;
+    transition: .5s;
+}
+
+.navbar-search {
+    padding: 10px;
+    margin-right: 100px;
+    border-radius: 30px;
+    transition: .6s;
+}
+
+.navbar-search:hover {
+    background-color: #009f6b;
+    transition: .6s;
+}
+
+.navbar-search:hover .search-button {
+    color: white;
+}
+
+.search-input {
+    padding: 5px;
+    margin-right: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    font-size: 16pt;
+    border-radius: 10px;
+}
+
+.search-button {
+    margin: 0 10px 0 10px;
+    background: none;
+    font-size: 16pt;
+    color: #009f6b;
+    cursor: pointer;
+}
+
