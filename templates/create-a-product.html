@@ -76,45 +76,52 @@
     <div class="product-list">
         <h1>Product List</h1>
         <hr color="#009f6b">
+
         <div class="shadow"></div>
+
+        <div id="no-products">no products</div>
         <ul id="product_wrapper"></ul>
     </div>
 
-    <div id="modal" class="modal">
 
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form>
-                <div>
-                    <label for="update_name">Name</label>
-                    <input id="update_name" type="text"/>
-                </div>
-                <div>
-                    <label for="update_price">Price</label>
-                    <input id="update_price" type="text"/>
-                </div>
-                <div>
-                    <label for="update_category">Category</label>
-                    <select name="categories" id="update_category">
-                        <option value="fruits">Fruits</option>
-                        <option value="vegetables">Vegetables</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="update_description">Description</label>
-                    <input id="update_description" type="text"/>
-                </div>
-                <div>
-                    <label for="update_image">Image</label>
-                    <input id="update_image" type="text" value="../public/assets/images/products/"/>
-                </div>
-                <div>
+    <div id="modal_overlay" style="display: none">
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" style="color: #fff;">&times;</span>
+                <h1>Update product</h1>
+                <form>
+                    <div>
+                        <label for="update_name">Name</label>
+                        <input id="update_name" type="text"/>
+                    </div>
+                    <div>
+                        <label for="update_price">Price</label>
+                        <input id="update_price" type="text"/>
+                    </div>
+                    <div>
+                        <label for="update_category">Category</label>
+                        <select name="categories" id="update_category">
+                            <option value="fruits">Fruits</option>
+                            <option value="vegetables">Vegetables</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="update_description">Description</label>
+                        <input id="update_description" type="text"/>
+                    </div>
+                    <div>
+                        <label for="update_image">Image</label>
+                        <input id="update_image" type="text" value="../public/assets/images/products/"/>
+                    </div>
+
                     <button id="update_product" type="button">Update</button>
-                </div>
-            </form>
-        </div>
 
+                </form>
+            </div>
+
+        </div>
     </div>
+
 </div>
 
 </body>

@@ -1,15 +1,19 @@
 $(document).ready(function () {
+    let flag = 0;
+
     $(".menu-button").click(function () {
         $(this).toggleClass('menu-toggle').find('i').toggle();
-        $(".navbar-links").slideToggle(500, function () {
-            if ($('.navbar-links').is(':hidden')) {
-                $(".crud-form").css("margin-left", "0");
-                $(".product-list").css("display", "block");
-            } else {
-                $(".crud-form").css("margin-left", "500px");
-                $(".product-list").css("display", "none");
-            }
-        });
+        $(".navbar-links").slideToggle(500);
+
+        flag++;
+
+        if (flag % 2 === 0) {
+            $(".crud-form").css("margin-left", "0");
+            $(".product-list").css("display", "block");
+        } else {
+            $(".crud-form").css("margin-left", "500px");
+            $(".product-list").css("display", "none");
+        }
     });
 });
 
@@ -38,5 +42,4 @@ const buttons = document.getElementsByClassName("navbar-item");
 
 for (const button of buttons) {
     button.addEventListener("click", createRipple);
-    console.log(button);
 }

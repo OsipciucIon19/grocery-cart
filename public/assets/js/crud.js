@@ -1,6 +1,7 @@
 let lastId = 0,
     productWrapper = document.getElementById("product_wrapper"),
     btnSave = document.getElementById("save_product"),
+    noProducts = document.getElementById("no-products"),
     removeIcon,
     updateIcon,
     productList;
@@ -11,6 +12,10 @@ function init() {
         productList = JSON.parse(window.localStorage.getItem('productList'));
     } else {
         productList = [];
+    }
+
+    if (productList.length === 0) {
+        noProducts.style.display = "block";
     }
 
     btnSave.addEventListener('click', saveProduct);
@@ -52,7 +57,10 @@ function addProductToList(product) {
         updateIcon = document.createElement('i'),
         editButtons = document.createElement('div');
 
-    element.innerHTML += product.name;
+    element.innerHTML += `${product.productId}<pre> - </pre>
+                          ${product.name}<pre> - </pre>
+                          ${product.price} $<pre> - </pre>
+                          ${product.category}`;
 
     editButtons.className = "edit_buttons";
 
@@ -66,14 +74,9 @@ function addProductToList(product) {
     editButtons.appendChild(updateIcon);
     editButtons.appendChild(removeIcon);
     element.setAttribute("id", product.productId);
-    // element.setAttribute("class", "items");
     productWrapper.appendChild(element);
 
-//    <i class="bi bi-trash"></i> -- remove
-//    <i class="bi bi-pencil"></i> -- edit
-
-//    <i class="bi bi-trash"></i> -- remove
-//    <i class="bi bi-pencil"></i> -- edit
+    noProducts.style.display = "none";
 }
 
 function updateProduct(event) {
@@ -86,19 +89,17 @@ function updateProduct(event) {
         btn = document.getElementById(productTag.id),
         span = document.getElementsByClassName("close")[0];
 
-    btn.onclick = function() {
-        modal.style.display = "block";
-    };
+    $(btn).click(function () {
+        $('#modal_overlay').show().addClass('modal-open');
+    });
 
-    span.onclick = function() {
-        modal.style.display = "none";
-    };
-
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    };
+    $(span).click(function () {
+        var elem = $('#modal_overlay');
+        elem.removeClass('modal-open');
+        setTimeout(function () {
+            elem.hide();
+        }, 200);
+    });
 
     if (productToUpdate) {
 
@@ -138,14 +139,16 @@ function removeProduct(event) {
     let productToRemove = event.target.closest('li'),
         productId = productToRemove.id;
 
-    console.log(productToRemove);
-
     productWrapper.removeChild(productToRemove);
     productList.forEach(function (value, i) {
         if (value.productId === Number(productId)) {
             productList.splice(i, 1);
         }
     });
+
+    if (productList.length === 0) {
+        noProducts.style.display = "block";
+    }
 
     syncProduct();
 }
