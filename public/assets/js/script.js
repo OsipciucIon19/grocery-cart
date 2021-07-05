@@ -1,7 +1,15 @@
 $(document).ready(function () {
     $(".menu-button").click(function () {
         $(this).toggleClass('menu-toggle').find('i').toggle();
-        $(".navbar-links").slideToggle(500);
+        $(".navbar-links").slideToggle(500, function () {
+            if ($('.navbar-links').is(':hidden')) {
+                $(".crud-form").css("margin-left", "0");
+                $(".product-list").css("display", "block");
+            } else {
+                $(".crud-form").css("margin-left", "500px");
+                $(".product-list").css("display", "none");
+            }
+        });
     });
 });
 
@@ -27,6 +35,8 @@ function createRipple(event) {
 }
 
 const buttons = document.getElementsByClassName("navbar-item");
+
 for (const button of buttons) {
     button.addEventListener("click", createRipple);
+    console.log(button);
 }
