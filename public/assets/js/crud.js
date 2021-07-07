@@ -1,6 +1,6 @@
 let lastId = 0,
-    productWrapper = document.getElementById("product_wrapper"),
-    btnSave = document.getElementById("save_product"),
+    productWrapper = document.getElementById("product-wrapper"),
+    btnSave = document.getElementById("save-product"),
     noProducts = document.getElementById("no-products"),
     removeIcon,
     updateIcon,
@@ -37,11 +37,11 @@ function saveProduct(event) {
 
     const product = {
         productId: lastId,
-        name: document.getElementById("product_name").value,
-        price: document.getElementById("product_price").value,
-        category: document.getElementById("product_category").value,
-        description: document.getElementById("product_description").value,
-        image: document.getElementById("product_image").value,
+        name: document.getElementById("product-name").value,
+        price: document.getElementById("product-price").value,
+        category: document.getElementById("product-category").value,
+        description: document.getElementById("product-description").value,
+        image: document.getElementById("product-image").value,
     };
     productList.push(product);
     syncProduct();
@@ -62,12 +62,12 @@ function addProductToList(product) {
                           ${product.price} $<pre> - </pre>
                           ${product.category}`;
 
-    editButtons.className = "edit_buttons";
+    editButtons.className = "edit-buttons";
 
-    updateIcon.className = "update_item bi bi-pencil";
+    updateIcon.className = "update-item bi bi-pencil";
     updateIcon.setAttribute("title", "Update");
 
-    removeIcon.className = "remove_item bi bi-trash";
+    removeIcon.className = "remove-item bi bi-trash";
     removeIcon.setAttribute("title", "Remove");
 
     element.appendChild(editButtons);
@@ -90,11 +90,11 @@ function updateProduct(event) {
         span = document.getElementsByClassName("close")[0];
 
     $(btn).click(function () {
-        $('#modal_overlay').show().addClass('modal-open');
+        $('#modal-overlay').show().addClass('modal-open');
     });
 
     $(span).click(function () {
-        var elem = $('#modal_overlay');
+        var elem = $('#modal-overlay');
         elem.removeClass('modal-open');
         setTimeout(function () {
             elem.hide();
@@ -103,12 +103,12 @@ function updateProduct(event) {
 
     if (productToUpdate) {
 
-        let productName = document.getElementById("update_name"),
-            productPrice = document.getElementById("update_price"),
-            productCategory = document.getElementById("update_category"),
-            productDescription = document.getElementById("update_description"),
-            productImage = document.getElementById("update_image"),
-            updateBtn = document.getElementById("update_product");
+        let productName = document.getElementById("update-name"),
+            productPrice = document.getElementById("update-price"),
+            productCategory = document.getElementById("update-category"),
+            productDescription = document.getElementById("update-description"),
+            productImage = document.getElementById("update-image"),
+            updateBtn = document.getElementById("update-product");
 
         productName.value = productToUpdate.name;
         productPrice.value = productToUpdate.price;
@@ -165,8 +165,8 @@ function getLastProductId() {
 
 function syncEvents() {
 
-    updateIcon = document.getElementsByClassName("update_item");
-    removeIcon = document.getElementsByClassName("remove_item");
+    updateIcon = document.getElementsByClassName("update-item");
+    removeIcon = document.getElementsByClassName("remove-item");
     if (removeIcon.length) {
         for (let i = 0; i < removeIcon.length; i++) {
             removeIcon[i].addEventListener('click', removeProduct);

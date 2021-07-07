@@ -1,5 +1,7 @@
 $(document).ready(function () {
     let flag = 0;
+    let resetButton = document.getElementById("search-reset"),
+        input = document.getElementById("search-input");
 
     $(".menu-button").click(function () {
         $(this).toggleClass('menu-toggle').find('i').toggle();
@@ -8,12 +10,30 @@ $(document).ready(function () {
         flag++;
 
         if (flag % 2 === 0) {
+            $("#fruits-app").css("margin-left", "0");
             $(".crud-form").css("margin-left", "0");
             $(".product-list").css("display", "block");
         } else {
+            $("#fruits-app").css("margin-left", "500px");
+            $("#carousel-container").css("width", "60%");
             $(".crud-form").css("margin-left", "500px");
             $(".product-list").css("display", "none");
         }
+    });
+
+    $(input).keyup(function(e) {
+
+        if($(this).val().length > 0) {
+            resetButton.style.display = "block";
+        }
+
+        if ((e.keyCode === 8 || e.keyCode === 46) && $(this).val().length === 0) {
+            resetButton.style.display = "none";
+        }
+    });
+
+    $(resetButton).click(function () {
+        resetButton.style.display = "none";
     });
 });
 

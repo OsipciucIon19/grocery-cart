@@ -26,7 +26,7 @@ input, select, option {
     width: 400px;
 }
 
-#save_product {
+#save-product {
     font-size: 14pt;
     font-family: "Montserrat SemiBold", sans-serif;
     margin-top: 20px;
@@ -62,7 +62,7 @@ input, select, option {
     margin: 70px 0 0 242px;
 }
 
-#product_wrapper {
+#product-wrapper {
     list-style-type: none;
     margin: 20px;
     height: 360px;
@@ -72,7 +72,7 @@ input, select, option {
 
 }
 
-#product_wrapper li {
+#product-wrapper li {
     display: flex;
     justify-content: space-between;
     padding: 11px;
@@ -80,29 +80,38 @@ input, select, option {
     transition: .6s;
 }
 
-#product_wrapper li:hover {
+#product-wrapper li:hover {
     background: #dff1eb;
     transition: .6s;
 }
 
-.remove_item {
+.remove-item {
     margin-left: 10px;
     cursor: pointer;
+    color: crimson;
+    transition: .6s;
 }
 
-.update_item {
+.update-item {
     cursor: pointer;
-
+    color: #009f6b;
+    transition: .6s;
 }
 
-#modal_overlay {
+.remove-item:hover, .update-item:hover {
+    color: #000000;
+    transition: .6s;
+}
+
+#modal-overlay {
     position: fixed;
     top:0;
     left:0;
     right:0;
     bottom:0;
-    background-color: rgba(0,0,0,0.8);
-    z-index:9999;
+    background-color: rgba(255,255,255,0.8);
+    z-index:3;
+    transition: .6s;
 }
 
 .modal {
@@ -118,9 +127,10 @@ input, select, option {
     transition: .6s;
 }
 
-#modal_overlay.modal-open #modal {
+#modal-overlay.modal-open #modal {
     opacity:1;
     top:50%;
+    transition: .6s;
 }
 
 .modal-content {
@@ -134,7 +144,7 @@ input, select, option {
     margin: auto;
 }
 
-#update_product {
+#update-product {
     font-size: 14pt;
     font-family: "Montserrat SemiBold", sans-serif;
     margin-top: 20px;
@@ -147,7 +157,7 @@ input, select, option {
 }
 
 .close {
-    color: #aaaaaa;
+    color: #fff;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -155,7 +165,7 @@ input, select, option {
 
 .close:hover,
 .close:focus {
-    color: #000;
+    color: #dff1eb;
     text-decoration: none;
     cursor: pointer;
 }
