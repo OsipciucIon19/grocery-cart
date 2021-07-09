@@ -8,8 +8,6 @@ $(document).ready(function () {
     });
 });
 
-let accessToSlide = 1;
-
 let productList = JSON.parse(window.localStorage.getItem('productList')),
     fruitList = [],
     vegetableList = [],
@@ -45,9 +43,10 @@ function checkExistentProducts(fruitList, vegetableList) {
 
     isPresent = show(fruitList, fruitSliderItems);
     if (isPresent) {
-        slide(fruitSlider, fruitSliderItems, fruitPrev, fruitNext);
         noProducts[0].style.display = "none";
         fruitSlider.style.display = "flex";
+        slide(fruitSlider, fruitSliderItems, fruitPrev, fruitNext);
+
     } else {
         noProducts[0].style.display = "flex";
         fruitSlider.style.display = "none";
@@ -135,30 +134,18 @@ function slide(slider, sliderItems, prev, next) {
     sliderItems.appendChild(cloneFirst);
     sliderItems.insertBefore(cloneLast, firstSlide);
 
-    if (accessToSlide <= 2) {
-        prev.addEventListener('click', function () {
-            shiftSlide(1);
-            console.log(1);
-        });
-
-        next.addEventListener('click', function () {
-            shiftSlide(1);
-            console.log(-1);
-        });
-
-        sliderItems.addEventListener('transitionend', checkIndex);
-
-        accessToSlide++;
-    }
+    prev.onclick = function () {
+        shiftSlide(-1);
+    };
+    next.onclick = function () {
+        shiftSlide(1);
+    };
 
     function shiftSlide(dir) {
-
         sliderItems.classList.add('shifting');
 
         if (allowShift) {
             posInitial = sliderItems.offsetLeft;
-
-            console.log(posInitial);
 
             if (dir === 1) {
                 sliderItems.style.left = (posInitial - slideSize) + "px";
@@ -168,7 +155,10 @@ function slide(slider, sliderItems, prev, next) {
                 index--;
             }
         }
+
         allowShift = false;
+
+        setTimeout(checkIndex, 600);
     }
 
     function checkIndex() {
@@ -178,7 +168,6 @@ function slide(slider, sliderItems, prev, next) {
             sliderItems.style.left = -(slidesLength * slideSize) + "px";
             index = slidesLength - 1;
         }
-
         if (index === slidesLength) {
             sliderItems.style.left = -(slideSize) + "px";
             index = 0;
