@@ -1,13 +1,26 @@
+$(document).ready(function () {
+    $(".control").on("click", function () {
+        $(".product").removeClass("hover");
+
+        setTimeout(function () {
+            $(".product").addClass("hover");
+        }, 1000);
+    });
+});
+
+let accessToSlide = 1;
+
 let productList = JSON.parse(window.localStorage.getItem('productList')),
     fruitList = [],
-    vegetableList = [];
+    vegetableList = [],
+    noProducts = document.getElementsByClassName("no-products"),
+    searchBtn = document.getElementById("search-button");
 
 let fruitSlider = document.getElementById('fruit-slider'),
     fruitSliderItems = document.getElementById('fruit-slider-items'),
     fruitPrev = document.getElementById('fruit-prev'),
-    fruitNext = document.getElementById('fruit-next');
-
-let vegetableSlider = document.getElementById('vegetable-slider'),
+    fruitNext = document.getElementById('fruit-next'),
+    vegetableSlider = document.getElementById('vegetable-slider'),
     vegetableSliderItems = document.getElementById('vegetable-slider-items'),
     vegetablePrev = document.getElementById('vegetable-prev'),
     vegetableNext = document.getElementById('vegetable-next');
@@ -20,42 +33,95 @@ for (let i = 0; i < productList.length; i++) {
     }
 }
 
-function showFruits(list, sliderItems) {
+checkExistentProducts(fruitList, vegetableList);
 
+searchBtn.addEventListener("click", function () {
+    $(".slide").remove();
+    checkExistentProducts(fruitList, vegetableList);
+});
+
+function checkExistentProducts(fruitList, vegetableList) {
+    let isPresent;
+
+    isPresent = show(fruitList, fruitSliderItems);
+    if (isPresent) {
+        slide(fruitSlider, fruitSliderItems, fruitPrev, fruitNext);
+        noProducts[0].style.display = "none";
+        fruitSlider.style.display = "flex";
+    } else {
+        noProducts[0].style.display = "flex";
+        fruitSlider.style.display = "none";
+    }
+
+    isPresent = show(vegetableList, vegetableSliderItems);
+    if (isPresent) {
+        noProducts[1].style.display = "none";
+        vegetableSlider.style.display = "flex";
+        slide(vegetableSlider, vegetableSliderItems, vegetablePrev, vegetableNext);
+    } else {
+        noProducts[1].style.display = "flex";
+        vegetableSlider.style.display = "none";
+    }
+}
+
+function show(list, sliderItems) {
     let itemsNumber = 5,
         firstItem = 0;
 
-    for (let i = 0; i < Math.ceil(list.length / 5); i++) {
+    let searchValue = $("#search-input").val();
+    let sortedList = [];
+
+    for (let i = 0; i < list.length; i++) {
+        let search = list[i].name.search(new RegExp(searchValue, "i"));
+
+        if (search > -1) {
+            sortedList.push(list[i]);
+        }
+    }
+
+    for (let i = 0; i < Math.ceil(sortedList.length / 5); i++) {
         let slides = document.createElement("div");
 
         slides.className = "slide";
         sliderItems.appendChild(slides);
 
         for (let j = firstItem; j < itemsNumber; j++) {
-            if (j === list.length) break;
+            if (j === sortedList.length) break;
 
             let product = document.createElement("div"),
-                productImage = document.createElement("img");
+                productImage = document.createElement("img"),
+                productName = document.createElement("div"),
+                productPrice = document.createElement("div"),
+                productDescription = document.createElement("div");
 
             product.className = "product";
+            product.classList.add("hover");
             slides.appendChild(product);
 
             productImage.className = "product-image";
-            productImage.src = list[j].image;
+            productName.className = "product-name";
+            productPrice.className = "product-price";
+            productDescription.className = "product-description";
+
+            productImage.src = sortedList[j].image;
+            productName.innerText = sortedList[j].name;
+            productPrice.innerText = `${sortedList[j].price} $ / kg`;
+            productDescription.innerText = sortedList[j].description;
+
             product.appendChild(productImage);
+            product.appendChild(productName);
+            product.appendChild(productPrice);
+            product.appendChild(productDescription);
         }
         itemsNumber += 5;
         firstItem += 5;
     }
 
+    return sortedList.length !== 0;
 }
 
 function slide(slider, sliderItems, prev, next) {
-    let posX1 = 0,
-        posX2 = 0,
-        posInitial,
-        posFinal,
-        threshold = 100,
+    let posInitial,
         slides = sliderItems.getElementsByClassName('slide'),
         slidesLength = slides.length,
         slideSize = slides[0].offsetWidth,
@@ -63,70 +129,36 @@ function slide(slider, sliderItems, prev, next) {
         lastSlide = slides[slidesLength - 1],
         cloneFirst = firstSlide.cloneNode(true),
         cloneLast = lastSlide.cloneNode(true),
-        index = 0,
-        allowShift = true;
+        allowShift = true,
+        index = 0;
 
     sliderItems.appendChild(cloneFirst);
     sliderItems.insertBefore(cloneLast, firstSlide);
-    slider.classList.add('loaded');
 
-    sliderItems.onmousedown = dragStart;
+    if (accessToSlide <= 2) {
+        prev.addEventListener('click', function () {
+            shiftSlide(1);
+            console.log(1);
+        });
 
-    sliderItems.addEventListener('touchstart', dragStart);
-    sliderItems.addEventListener('touchend', dragEnd);
-    sliderItems.addEventListener('touchmove', dragAction);
+        next.addEventListener('click', function () {
+            shiftSlide(1);
+            console.log(-1);
+        });
 
-    prev.addEventListener('click', function () { shiftSlide(-1) });
-    next.addEventListener('click', function () { shiftSlide(1) });
+        sliderItems.addEventListener('transitionend', checkIndex);
 
-    sliderItems.addEventListener('transitionend', checkIndex);
-
-    function dragStart (e) {
-        e = e || window.event;
-        e.preventDefault();
-        posInitial = sliderItems.offsetLeft;
-
-        if (e.type === 'touchstart') {
-            posX1 = e.touches[0].clientX;
-        } else {
-            posX1 = e.clientX;
-            document.onmouseup = dragEnd;
-            document.onmousemove = dragAction;
-        }
+        accessToSlide++;
     }
 
-    function dragAction (e) {
-        e = e || window.event;
+    function shiftSlide(dir) {
 
-        if (e.type === 'touchmove') {
-            posX2 = posX1 - e.touches[0].clientX;
-            posX1 = e.touches[0].clientX;
-        } else {
-            posX2 = posX1 - e.clientX;
-            posX1 = e.clientX;
-        }
-        sliderItems.style.left = (sliderItems.offsetLeft - posX2) + "px";
-    }
-
-    function dragEnd (e) {
-        posFinal = sliderItems.offsetLeft;
-        if (posFinal - posInitial < -threshold) {
-            shiftSlide(1, 'drag');
-        } else if (posFinal - posInitial > threshold) {
-            shiftSlide(-1, 'drag');
-        } else {
-            sliderItems.style.left = (posInitial) + "px";
-        }
-
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
-
-    function shiftSlide(dir, action) {
         sliderItems.classList.add('shifting');
 
         if (allowShift) {
-            if (!action) { posInitial = sliderItems.offsetLeft; }
+            posInitial = sliderItems.offsetLeft;
+
+            console.log(posInitial);
 
             if (dir === 1) {
                 sliderItems.style.left = (posInitial - slideSize) + "px";
@@ -136,11 +168,10 @@ function slide(slider, sliderItems, prev, next) {
                 index--;
             }
         }
-
         allowShift = false;
     }
 
-    function checkIndex (){
+    function checkIndex() {
         sliderItems.classList.remove('shifting');
 
         if (index === -1) {
@@ -152,13 +183,6 @@ function slide(slider, sliderItems, prev, next) {
             sliderItems.style.left = -(slideSize) + "px";
             index = 0;
         }
-
         allowShift = true;
     }
 }
-
-showFruits(fruitList, fruitSliderItems);
-showFruits(vegetableList, vegetableSliderItems);
-
-slide(fruitSlider, fruitSliderItems, fruitPrev, fruitNext);
-slide(vegetableSlider, vegetableSliderItems, vegetablePrev, vegetableNext);

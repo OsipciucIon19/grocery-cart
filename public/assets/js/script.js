@@ -8,22 +8,20 @@ $(document).ready(function () {
         $(".navbar-links").slideToggle(500);
 
         flag++;
-
         if (flag % 2 === 0) {
-            $("#fruits-app").css("margin-left", "0");
+            $(".main-container").css("margin-left", "150px").css("width", "80%");
             $(".crud-form").css("margin-left", "0");
             $(".product-list").css("display", "block");
         } else {
-            $("#fruits-app").css("margin-left", "500px");
-            $("#carousel-container").css("width", "60%");
+            $(".main-container").css("margin-left", "335px").css("width", "76%");
             $(".crud-form").css("margin-left", "500px");
             $(".product-list").css("display", "none");
         }
     });
 
-    $(input).keyup(function(e) {
+    $(input).keyup(function (e) {
 
-        if($(this).val().length > 0) {
+        if ($(this).val().length > 0) {
             resetButton.style.display = "block";
         }
 

@@ -37,50 +37,44 @@
         </ul>
     </div>
 
-    <form class="navbar-search">
+    <div class="navbar-search">
 
-            <div class="search">
+            <form class="search">
                 <input id="search-input" class="search-input" type="text" placeholder="Search products here">
                 <button id="search-reset" type="reset" style="display: none">&times;</button>
-                <button class="search-button" type="button"><i class="bi bi-search"></i></button>
-            </div>
+                <button id="search-button" class="search-button" type="button"><i class="bi bi-search"></i></button>
+            </form>
 
 
-    </form>
+    </div>
 </nav>
 
-<div class="container">
-
-    <div id="fruits-app">
-<!--        <h1>Shop your favourite fruits</h1>-->
-        <div id="fruit-slider" class="slider">
-            <div class="wrapper">
-                <div id="fruit-slider-items" class="slider-items">
+<div class="main-container">
+        <div id="fruits-app">
+            <div class="fruit-products-title">Shop your favourite fruits...</div>
+            <div class="no-products">There no products.</div>
+            <div id="fruit-slider" class="slider">
+                <div class="wrapper">
+                    <div id="fruit-slider-items" class="slider-items">
+                    </div>
                 </div>
+                <a id="fruit-prev" class="control prev"></a>
+                <a id="fruit-next" class="control next"></a>
             </div>
-            <a id="fruit-prev" class="control prev"></a>
-            <a id="fruit-next" class="control next"></a>
         </div>
-    </div>
 
-    <div id="vegetables-app">
-<!--        <h1>Order now the freshest vegetables</h1>-->
-<!--        <div class="product">-->
-<!--            <img class="product-image" src="../public/assets/images/products/avocado.jpg" alt="" height="200">-->
-<!--            <div class="product-name">Avocado</div>-->
-<!--            <div class="product-price">10 $</div>-->
-<!--            <div class="product-description">This is an avocado.</div>-->
-<!--        </div>-->
-        <div id="vegetable-slider" class="slider">
-            <div class="wrapper">
-                <div id="vegetable-slider-items" class="slider-items">
+        <div id="vegetables-app">
+            <div class="vegetable-products-title">... or order now the freshest vegetables</div>
+            <div class="no-products">There are no products.</div>
+            <div id="vegetable-slider" class="slider">
+                <div class="wrapper">
+                    <div id="vegetable-slider-items" class="slider-items">
+                    </div>
                 </div>
+                <a id="vegetable-prev" class="control prev"></a>
+                <a id="vegetable-next" class="control next"></a>
             </div>
-            <a id="vegetable-prev" class="control prev"></a>
-            <a id="vegetable-next" class="control next"></a>
         </div>
-    </div>
-
 </div>
 
 </body>

@@ -1,88 +1,180 @@
-#fruits-app {
+.main-container {
+    width: 80%;
+    margin: 0 150px;
     transition: .6s;
 }
 
+.no-products {
+    margin: 0;
+    position: relative;
+    /*width: 100%;*/
+    padding: 95px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#fruits-app {
+    display: flex;
+    flex-direction: column;
+}
+
+#vegetables-app {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: #009766 2px solid;
+    box-shadow: inset 0 0 29px -8px rgba(0, 151, 102,0.15);
+    transition: .6s;
+}
+
+.fruit-products-title {
+    margin-left: auto;
+    font-family: "Montserrat SemiBold", sans-serif;
+    font-size: 28pt;
+}
+
+.vegetable-products-title {
+    float: left;
+    font-family: "Montserrat SemiBold", sans-serif;
+    font-size: 28pt;
+}
+
+
+
+.product {
+    display: flex;
+    border-radius: 30px;
+    margin: 10px;
+    position: relative;
+    width: 180px;
+    height: 180px;
+    transition: .6s;
+    justify-content: center;
+}
 
 .product-name, .product-price, .product-description {
+    position: absolute;
+    justify-content: center;
     display: none;
-    transition: .6s;
 }
 
-.product:hover > div {
+.product-name {
+    top: 5px;
+}
+
+.product-price {
+    font-weight: bold;
+    top: 100px;
+    background-color: rgba(0, 151, 102, 0.7);
+    border-radius: 10px;
+    padding: 7px;
+    color: white;
+}
+
+.product-description {
+    top: 150px;
+    font-style: italic;
+    font-size: 10pt;
+}
+
+.hover:hover > div {
     display: block;
+    transform: translate(50);
     transition: .6s;
 }
 
 .product-image {
+    margin: 0 auto;
+    height: 180px;
+    border-radius: 30px;
+    transition: .6s;
+}
+
+.hover:hover > .product-image {
+    opacity: .5;
+    transform: scale(.8);
+}
+
+.hover:hover {
+    box-shadow: 0 0 20px -8px rgba(0,0,0,0.3);
+    transition: .6s;
+    width: 200px;
     height: 200px;
+    margin: 0;
 }
 
 /*-----------------*/
-
-
 .slider {
-    /*position: absolute;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
-    width: 800px;
-    height: 250px;
-    /*box-shadow: 3px 3px 10px rgba(0, 0, 0, .2);*/
+    position: relative;
+    width: 1100px;
+    height: 220px;
+    /*padding-top: 50px;*/
+    margin: 0 auto;
+    transition: .6s;
 }
+
 .wrapper {
+    display: flex;
     overflow: hidden;
     position: relative;
-    width: 1200px;
-    height: 250px;
-    z-index: 1;
+    width: 1100px;
+    height: 220px;
+    /*z-index: 1;*/
 }
+
 .slider-items {
     display: flex;
     position: relative;
-    top: 0;
-    left: -1200px;
+    align-items: center;
+    left: -1100px;
     width: 10000px;
 }
+
 .slider-items.shifting {
-    transition: left 0.6s ease-out;
+    transition: .6s;
 }
+
 .slide {
-    width: 1200px;
-    height: 200px;
-    cursor: pointer;
+    width: 1100px;
+    height: 220px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    transition: all 1s;
+    align-items: center;
+    transition: .6s;
     position: relative;
-    border-radius: 2px;
 }
 
 .control {
-    /*position: absolute;*/
-    top: 50%;
+    position: absolute;
+    top: 55%;
     width: 50px;
     height: 50px;
     background: #fff;
     border-radius: 50px;
     margin-top: -20px;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
-    z-index: 2;
+    /*z-index: 1;*/
 }
+
 .prev, .next {
     background-size: 22px;
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
 }
+
 .prev {
-    background-image: url(https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeft-512.png);
     left: -20px;
+    background-image: url(https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeft-512.png);
 }
+
 .next {
-    background-image: url(https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronRight-512.png);
     right: -20px;
+    background-image: url(https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronRight-512.png);
 }
+
 .prev:active, .next:active {
     transform: scale(0.8);
 }

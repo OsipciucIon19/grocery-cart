@@ -7,7 +7,6 @@ let lastId = 0,
     productList;
 
 function init() {
-
     if (window.localStorage.getItem('productList')) {
         productList = JSON.parse(window.localStorage.getItem('productList'));
     } else {
@@ -23,7 +22,6 @@ function init() {
 }
 
 function showList() {
-
     if (productList.length) {
         getLastProductId();
         for (let i = 0; i < productList.length; i++) {
@@ -34,14 +32,13 @@ function showList() {
 }
 
 function saveProduct(event) {
-
     const product = {
         productId: lastId,
         name: document.getElementById("product-name").value,
         price: document.getElementById("product-price").value,
         category: document.getElementById("product-category").value,
         description: document.getElementById("product-description").value,
-        image: document.getElementById("product-image").value,
+        image: `../public/assets/images/products/${document.getElementById("product-image").value}`,
     };
     productList.push(product);
     syncProduct();
@@ -51,7 +48,6 @@ function saveProduct(event) {
 }
 
 function addProductToList(product) {
-
     let removeIcon = document.createElement('i'),
         element = document.createElement('li'),
         updateIcon = document.createElement('i'),
@@ -80,7 +76,6 @@ function addProductToList(product) {
 }
 
 function updateProduct(event) {
-
     let productTag = event.target.closest('li'),
         productId = productTag.id,
         productToUpdate = findProduct(productId).product,
@@ -102,7 +97,6 @@ function updateProduct(event) {
     });
 
     if (productToUpdate) {
-
         let productName = document.getElementById("update-name"),
             productPrice = document.getElementById("update-price"),
             productCategory = document.getElementById("update-category"),
@@ -128,14 +122,12 @@ function updateProduct(event) {
             productList[pos] = productToUpdate;
 
             syncProduct();
-
             window.location.reload();
         }
     }
 }
 
 function removeProduct(event) {
-
     let productToRemove = event.target.closest('li'),
         productId = productToRemove.id;
 
@@ -149,7 +141,6 @@ function removeProduct(event) {
     if (productList.length === 0) {
         noProducts.style.display = "block";
     }
-
     syncProduct();
 }
 
@@ -164,7 +155,6 @@ function getLastProductId() {
 }
 
 function syncEvents() {
-
     updateIcon = document.getElementsByClassName("update-item");
     removeIcon = document.getElementsByClassName("remove-item");
     if (removeIcon.length) {
@@ -180,7 +170,6 @@ function syncEvents() {
 }
 
 function findProduct(id) {
-
     const response = {
         product: '',
         pos: 0
@@ -195,4 +184,3 @@ function findProduct(id) {
 }
 
 init();
-
