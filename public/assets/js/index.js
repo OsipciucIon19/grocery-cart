@@ -38,6 +38,15 @@ searchBtn.addEventListener("click", function () {
     checkExistentProducts(fruitList, vegetableList);
 });
 
+$(".search").keydown(function (e) {
+    if (e.key === 13) {
+        e.preventDefault();
+        checkExistentProducts(fruitList, vegetableList);
+        return false;
+    }
+});
+
+
 function checkExistentProducts(fruitList, vegetableList) {
     let isPresent;
 
@@ -46,6 +55,18 @@ function checkExistentProducts(fruitList, vegetableList) {
         noProducts[0].style.display = "none";
         fruitSlider.style.display = "flex";
         slide(fruitSlider, fruitSliderItems, fruitPrev, fruitNext);
+
+        $(".bi-cart-plus-fill").on("click", function () {
+            let index = $(".bi-cart-plus-fill").index(this);
+
+            $(".add-item").eq(index).css("display", "flex");
+            $(".remove-item").eq(index).css("display", "flex");
+
+            $(".product").eq(index).mouseleave(function () {
+                $(".add-item").eq(index).css("display", "none");
+                $(".remove-item").eq(index).css("display", "none");
+            })
+        });
 
     } else {
         noProducts[0].style.display = "flex";
@@ -57,6 +78,18 @@ function checkExistentProducts(fruitList, vegetableList) {
         noProducts[1].style.display = "none";
         vegetableSlider.style.display = "flex";
         slide(vegetableSlider, vegetableSliderItems, vegetablePrev, vegetableNext);
+
+        $(".bi-cart-plus-fill").on("click", function () {
+            let index = $(".bi-cart-plus-fill").index(this);
+
+            $(".add-item").eq(index).css("display", "flex");
+            $(".remove-item").eq(index).css("display", "flex");
+
+            $(".product").eq(index).mouseleave(function () {
+                $(".add-item").eq(index).css("display", "none");
+                $(".remove-item").eq(index).css("display", "none");
+            })
+        });
     } else {
         noProducts[1].style.display = "flex";
         vegetableSlider.style.display = "none";
@@ -91,7 +124,12 @@ function show(list, sliderItems) {
                 productImage = document.createElement("img"),
                 productName = document.createElement("div"),
                 productPrice = document.createElement("div"),
-                productDescription = document.createElement("div");
+                productDescription = document.createElement("div"),
+                productCart = document.createElement("div");
+
+            let productCartButton = document.createElement("i"),
+                productCartAddItem = document.createElement("div"),
+                productCartRemoveItem = document.createElement("div");
 
             product.className = "product";
             product.classList.add("hover");
@@ -101,16 +139,29 @@ function show(list, sliderItems) {
             productName.className = "product-name";
             productPrice.className = "product-price";
             productDescription.className = "product-description";
+            productCart.className = "product-cart";
+
+            productCartButton.className = "bi bi-cart-plus-fill";
+            productCartAddItem.className = "add-item";
+            productCartRemoveItem.className = "remove-item";
 
             productImage.src = sortedList[j].image;
             productName.innerText = sortedList[j].name;
             productPrice.innerText = `${sortedList[j].price} $ / kg`;
             productDescription.innerText = sortedList[j].description;
 
+            productCartAddItem.innerText = '+';
+            productCartRemoveItem.innerText = '-';
+
             product.appendChild(productImage);
             product.appendChild(productName);
             product.appendChild(productPrice);
-            product.appendChild(productDescription);
+            // product.appendChild(productDescription);
+            product.appendChild(productCart);
+
+            productCart.appendChild(productCartRemoveItem);
+            productCart.appendChild(productCartButton);
+            productCart.appendChild(productCartAddItem);
         }
         itemsNumber += 5;
         firstItem += 5;
