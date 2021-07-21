@@ -1,6 +1,7 @@
-let cartItems;
+let cartItems,
+    itemsWrapper = document.getElementById("items-wrapper");
 
-let addToCartBtn = document.getElementById("")
+let addToCartBtn = document.getElementById("");
 
 function init() {
     if (window.localStorage.getItem('cartItems')) {
@@ -13,12 +14,12 @@ function init() {
         // noProducts.style.display = "block";
     }
 
-    // showCart();
+    showCart();
 }
 
 function showCart() {
     if (cartItems.length) {
-        getLastProductId();
+        getLastCartItemId();
         for (let i = 0; i < cartItems.length; i++) {
             addProductToCart(cartItems[i]);
         }
@@ -57,28 +58,33 @@ function saveCartItem(product) {
 function addProductToCart(item) {
     let removeIcon = document.createElement('i'),
         element = document.createElement('li'),
-        editButtons = document.createElement('div');
+        image = document.createElement('img'),
+        name = document.createElement('div'),
+        price = document.createElement('div'),
+        amount = document.createElement('div'),
+        totalRow = document.createElement('div');
 
-    element.innerHTML += `${item.productId}<pre> - </pre>
-                          ${item.name}<pre> - </pre>
-                          ${item.price} $<pre> - </pre>
-                          ${item.category}`;
+    image.src = item.image;
 
-    editButtons.className = "edit-buttons";
+    name.innerText = item.name;
+    price.innerText = `${item.price} $`;
+    amount.innerText = `${item.amount} kg`;
+    totalRow.innerText = `${item.price * item.amount} $`;
 
-    updateIcon.className = "update-item bi bi-pencil";
-    updateIcon.setAttribute("title", "Update");
+    element.className = "cart-item";
+    image.className = "cart-image";
+    name.className = "cart-name";
+    price.className = "cart-price";
+    amount.className = "cart-amount";
+    totalRow.className = "cart-total-row";
 
-    removeIcon.className = "remove-item bi bi-trash";
-    removeIcon.setAttribute("title", "Remove");
+    element.appendChild(image);
+    element.appendChild(name);
+    element.appendChild(price);
+    element.appendChild(amount);
+    element.appendChild(totalRow);
 
-    element.appendChild(editButtons);
-    editButtons.appendChild(updateIcon);
-    editButtons.appendChild(removeIcon);
-    element.setAttribute("id", item.productId);
-    productWrapper.appendChild(element);
-
-    noProducts.style.display = "none";
+    itemsWrapper.appendChild(element);
 }
 
 function syncCartItem() {
@@ -87,24 +93,8 @@ function syncCartItem() {
 }
 
 function getLastCartItemId() {
-    let lastTask = productList[productList.length - 1];
-    lastId = lastTask.productId + 1;
+    let lastTask = cartItems[cartItems.length - 1];
+    lastId = lastTask.itemId + 1;
 }
-
-// function syncEvents() {
-//     updateIcon = document.getElementsByClassName("update-item");
-//     removeIcon = document.getElementsByClassName("remove-item");
-//     if (removeIcon.length) {
-//         for (let i = 0; i < removeIcon.length; i++) {
-//             removeIcon[i].addEventListener('click', removeProduct);
-//         }
-//     }
-//     if (updateIcon.length) {
-//         for (let i = 0; i < updateIcon.length; i++) {
-//             updateIcon[i].addEventListener('click', updateProduct);
-//         }
-//     }
-// }
-
 
 init();
