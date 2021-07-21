@@ -6,6 +6,10 @@ $(document).ready(function () {
             $(".product").addClass("hover");
         }, 1000);
     });
+
+    $(".search").submit(function () {
+        return false;
+    });
 });
 
 let productList = JSON.parse(window.localStorage.getItem('productList')),
@@ -33,19 +37,10 @@ for (let i = 0; i < productList.length; i++) {
 
 checkExistentProducts(fruitList, vegetableList);
 
-searchBtn.addEventListener("click", function () {
+searchBtn.onclick = function () {
     $(".slide").remove();
     checkExistentProducts(fruitList, vegetableList);
-});
-
-$(".search").keydown(function (e) {
-    if (e.key === 13) {
-        e.preventDefault();
-        checkExistentProducts(fruitList, vegetableList);
-        return false;
-    }
-});
-
+};
 
 function checkExistentProducts(fruitList, vegetableList) {
     let isPresent;
@@ -56,17 +51,17 @@ function checkExistentProducts(fruitList, vegetableList) {
         fruitSlider.style.display = "flex";
         slide(fruitSlider, fruitSliderItems, fruitPrev, fruitNext);
 
-        $(".bi-cart-plus-fill").on("click", function () {
-            let index = $(".bi-cart-plus-fill").index(this);
-
-            $(".add-item").eq(index).css("display", "flex");
-            $(".remove-item").eq(index).css("display", "flex");
-
-            $(".product").eq(index).mouseleave(function () {
-                $(".add-item").eq(index).css("display", "none");
-                $(".remove-item").eq(index).css("display", "none");
-            })
-        });
+        // $(".add-to-cart").on("click", function () {
+        //     let index = $(".add-to-cart").index(this);
+        //
+        //     $(".add-item").eq(index).css("display", "flex");
+        //     $(".remove-item").eq(index).css("display", "flex");
+        //
+        //     $(".product").eq(index).mouseleave(function () {
+        //         $(".add-item").eq(index).css("display", "none");
+        //         $(".remove-item").eq(index).css("display", "none");
+        //     })
+        // });
 
     } else {
         noProducts[0].style.display = "flex";
@@ -79,21 +74,30 @@ function checkExistentProducts(fruitList, vegetableList) {
         vegetableSlider.style.display = "flex";
         slide(vegetableSlider, vegetableSliderItems, vegetablePrev, vegetableNext);
 
-        $(".bi-cart-plus-fill").on("click", function () {
-            let index = $(".bi-cart-plus-fill").index(this);
-
-            $(".add-item").eq(index).css("display", "flex");
-            $(".remove-item").eq(index).css("display", "flex");
-
-            $(".product").eq(index).mouseleave(function () {
-                $(".add-item").eq(index).css("display", "none");
-                $(".remove-item").eq(index).css("display", "none");
-            })
-        });
     } else {
         noProducts[1].style.display = "flex";
         vegetableSlider.style.display = "none";
     }
+
+    $(".add-to-cart").on("click", function () {
+        let index = $(".add-to-cart").index(this);
+
+        let id = $(".product-cart").eq(index).attr("data-id");
+
+        for (let product of productList) {
+            if (product.productId === Number(id)) {
+                saveCartItem(product);
+            }
+        }
+
+        $(".add-item").eq(index).css("display", "flex");
+        $(".remove-item").eq(index).css("display", "flex");
+
+        $(".product").eq(index).mouseleave(function () {
+            $(".add-item").eq(index).css("display", "none");
+            $(".remove-item").eq(index).css("display", "none");
+        })
+    });
 }
 
 function show(list, sliderItems) {
@@ -121,6 +125,7 @@ function show(list, sliderItems) {
             if (j === sortedList.length) break;
 
             let product = document.createElement("div"),
+                productId = document.createElement("div"),
                 productImage = document.createElement("img"),
                 productName = document.createElement("div"),
                 productPrice = document.createElement("div"),
@@ -141,7 +146,8 @@ function show(list, sliderItems) {
             productDescription.className = "product-description";
             productCart.className = "product-cart";
 
-            productCartButton.className = "bi bi-cart-plus-fill";
+            productCartButton.className = "add-to-cart bi bi-basket2-fill";
+            productCart.dataset.id = sortedList[j].productId;
             productCartAddItem.className = "add-item";
             productCartRemoveItem.className = "remove-item";
 
