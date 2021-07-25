@@ -51,18 +51,6 @@ function checkExistentProducts(fruitList, vegetableList) {
         fruitSlider.style.display = "flex";
         slide(fruitSlider, fruitSliderItems, fruitPrev, fruitNext);
 
-        // $(".add-to-cart").on("click", function () {
-        //     let index = $(".add-to-cart").index(this);
-        //
-        //     $(".add-item").eq(index).css("display", "flex");
-        //     $(".remove-item").eq(index).css("display", "flex");
-        //
-        //     $(".product").eq(index).mouseleave(function () {
-        //         $(".add-item").eq(index).css("display", "none");
-        //         $(".remove-item").eq(index).css("display", "none");
-        //     })
-        // });
-
     } else {
         noProducts[0].style.display = "flex";
         fruitSlider.style.display = "none";
@@ -80,23 +68,44 @@ function checkExistentProducts(fruitList, vegetableList) {
     }
 
     $(".add-to-cart").on("click", function () {
-        let index = $(".add-to-cart").index(this);
+        let addToCartButton = $(".add-to-cart"),
+            index = addToCartButton.index(this),
+            addOneAmountButton = $(".add-item").eq(index),
+            removeOneAmountButton = $(".remove-item").eq(index),
+            prod;
 
         let id = $(".product-cart").eq(index).attr("data-id");
 
+        addOneAmountButton.css("display", "flex");
+        removeOneAmountButton.css("display", "flex");
+        $(".item-amount").css("display", "flex");
+
+        addToCartButton[index].style.pointerEvents = "none";
+
         for (let product of productList) {
+
             if (product.productId === Number(id)) {
-                saveCartItem(product);
+                saveCartItem(product, index);
+                prod = product;
+                break;
             }
         }
 
-        $(".add-item").eq(index).css("display", "flex");
-        $(".remove-item").eq(index).css("display", "flex");
+        addOneAmountButton[0].onclick = function () {
+            addOneCartItem(prod, index);
+        }
+
+        removeOneAmountButton[0].onclick = function () {
+            removeOneCartItem(prod, index);
+        }
+
 
         $(".product").eq(index).mouseleave(function () {
-            $(".add-item").eq(index).css("display", "none");
-            $(".remove-item").eq(index).css("display", "none");
-        })
+            addOneAmountButton.css("display", "none");
+            removeOneAmountButton.css("display", "none");
+            $(".item-amount").css("display", "none");
+            addToCartButton[index].style.pointerEvents = "auto";
+        });
     });
 }
 
@@ -153,7 +162,7 @@ function show(list, sliderItems) {
 
             productImage.src = sortedList[j].image;
             productName.innerText = sortedList[j].name;
-            productPrice.innerText = `${sortedList[j].price} $ / kg`;
+            productPrice.innerText = `$${sortedList[j].price} / kg`;
             productDescription.innerText = sortedList[j].description;
 
             productCartAddItem.innerText = '+';
@@ -162,7 +171,6 @@ function show(list, sliderItems) {
             product.appendChild(productImage);
             product.appendChild(productName);
             product.appendChild(productPrice);
-            // product.appendChild(productDescription);
             product.appendChild(productCart);
 
             productCart.appendChild(productCartRemoveItem);
