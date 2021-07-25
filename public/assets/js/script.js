@@ -12,10 +12,14 @@ $(document).ready(function () {
             $(".main-container").css("margin-left", "150px").css("width", "80%");
             $(".crud-form").css("margin-left", "0");
             $(".product-list").css("display", "block");
+            $("#total").css("display", "flex");
+            $(".cart-list").css("margin-left", "0");
         } else {
             $(".main-container").css("margin-left", "335px").css("width", "76%");
             $(".crud-form").css("margin-left", "500px");
             $(".product-list").css("display", "none");
+            $("#total").css("display", "none");
+            $(".cart-list").css("margin-left", "300px")
         }
     });
 
