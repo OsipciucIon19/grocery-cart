@@ -1,42 +1,62 @@
-$(document).ready(function () {
-    let flag = 0;
-    let resetButton = document.getElementById("search-reset"),
-        input = document.getElementById("search-input");
+let flag = 0;
+const resetButton = document.getElementById("search-reset"),
+    input = document.getElementById("search-input"),
+    menuButton = document.querySelector(".menu-button"),
+    navBarLinks = document.querySelector(".navbar-links");
 
-    $(".menu-button").click(function () {
-        $(this).toggleClass('menu-toggle').find('i').toggle();
-        $(".navbar-links").slideToggle(500);
+menuButton.addEventListener("click", function () {
 
-        flag++;
-        if (flag % 2 === 0) {
-            $(".main-container").css("margin-left", "150px").css("width", "80%");
-            $(".crud-form").css("margin-left", "0");
-            $(".product-list").css("display", "block");
-            $("#total").css("display", "flex");
-            $(".cart-list").css("margin-left", "0");
-        } else {
-            $(".main-container").css("margin-left", "335px").css("width", "76%");
-            $(".crud-form").css("margin-left", "500px");
-            $(".product-list").css("display", "none");
-            $("#total").css("display", "none");
-            $(".cart-list").css("margin-left", "300px")
+    menuButton.classList.toggle("menu-toggle");
+    document.querySelector("i").classList.toggle("bi-x-lg");
+
+
+    if (navBarLinks.style.display !== "none") {
+        navBarLinks.style.display = "none";
+    } else {
+        navBarLinks.style.display = "flex";
+    }
+
+    flag++;
+
+    const mainContainer = document.querySelector(".main-container"),
+        crudForm = document.querySelector(".crud-form"),
+        productList = document.querySelector(".product-list"),
+        totalPrice = document.querySelector("#total"),
+        cartList = document.querySelector(".cart-list");
+
+    if (flag % 2 === 0) {
+
+        if (window.location.href.includes("index")) {
+            mainContainer.style.marginLeft = "150px";
+            mainContainer.style.width = "80%";
         }
-    });
 
-    $(input).keyup(function (e) {
-
-        if ($(this).val().length > 0) {
-            resetButton.style.display = "block";
+        if (window.location.href.includes("create-a-product")) {
+            crudForm.style.marginLeft = "0";
+            productList.style.display = "block";
         }
 
-        if ((e.keyCode === 8 || e.keyCode === 46) && $(this).val().length === 0) {
-            resetButton.style.display = "none";
+        if (window.location.href.includes("cart.html")) {
+            totalPrice.style.display = "flex";
+            cartList.style.marginLeft = "0";
         }
-    });
+    } else {
 
-    $(resetButton).click(function () {
-        resetButton.style.display = "none";
-    });
+        if (window.location.href.includes("index")) {
+            mainContainer.style.marginLeft = "335px";
+            mainContainer.style.width = "76%";
+        }
+
+        if (window.location.href.includes("create-a-product")) {
+            crudForm.style.marginLeft = "500px";
+            productList.style.display = "none";
+        }
+
+        if (window.location.href.includes("cart.html")) {
+            totalPrice.style.display = "none";
+            cartList.style.marginLeft = "300px";
+        }
+    }
 });
 
 function createRipple(event) {

@@ -79,13 +79,17 @@ nav {
     transition: .6s;
 }
 
-.menu-button .bi-list, .bi-x-lg {
+.menu-button {
     color: white !important;
 }
 
 .menu-button:hover .bi-list, .bi-x-lg {
     color: #009f6b !important;
     transition: .5s;
+}
+
+.bi-x-lg {
+    color: #009f6b !important;
 }
 
 .menu-button:hover {
@@ -97,12 +101,14 @@ nav {
     z-index: 1;
     position: absolute;
     top: 0;
-    display: block;
+    display: flex;
+    flex-direction: column;
     height: 78vh;
     width: 300px;
     padding-top: 22vh;
     background-color: #009766;
     color: white;
+    transition: .5s;
 }
 
 .navbar-item {

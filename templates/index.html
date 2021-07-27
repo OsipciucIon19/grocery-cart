@@ -39,48 +39,49 @@
 
     <div class="navbar-search">
 
-            <form class="search">
-                <input id="search-input" class="search-input" type="text" placeholder="Search products here">
-                <button id="search-reset" type="reset" style="display: none">&times;</button>
-                <button id="search-button" class="search-button"><i class="bi bi-search"></i></button>
-            </form>
+        <form class="search">
+            <input id="search-input" name="search-input" class="search-input" type="text"
+                   placeholder="Search products here">
+            <button id="search-reset" type="reset" style="display: none">&times;</button>
+            <label for="search-input">
+                <button id="search-button" type="button" class="search-button"><i class="bi bi-search"></i></button>
+            </label>
+        </form>
 
 
     </div>
 </nav>
 
 <div class="main-container">
-        <div id="fruits-app">
-            <div class="fruit-products-title">Shop your favourite fruits...</div>
-            <div class="no-products">There no products.</div>
-            <div id="fruit-slider" class="slider">
-                <div class="wrapper">
-                    <div id="fruit-slider-items" class="slider-items">
-                    </div>
+    <div id="fruits-app">
+        <div class="fruit-products-title">Shop your favourite fruits...</div>
+        <div class="no-products">There no products.</div>
+        <div id="fruit-slider" class="slider">
+            <div class="wrapper">
+                <div id="fruit-slider-items" class="slider-items">
                 </div>
-                <a id="fruit-prev" class="control prev"></a>
-                <a id="fruit-next" class="control next"></a>
             </div>
+            <a id="fruit-prev" class="control prev"></a>
+            <a id="fruit-next" class="control next"></a>
         </div>
+    </div>
 
-        <div id="vegetables-app">
-            <div class="vegetable-products-title">... or order now the freshest vegetables</div>
-            <div class="no-products">There are no products.</div>
-            <div id="vegetable-slider" class="slider">
-                <div class="wrapper">
-                    <div id="vegetable-slider-items" class="slider-items">
-                    </div>
+    <div id="vegetables-app">
+        <div class="vegetable-products-title">... or order now the freshest vegetables</div>
+        <div class="no-products">There are no products.</div>
+        <div id="vegetable-slider" class="slider">
+            <div class="wrapper">
+                <div id="vegetable-slider-items" class="slider-items">
                 </div>
-                <a id="vegetable-prev" class="control prev"></a>
-                <a id="vegetable-next" class="control next"></a>
             </div>
+            <a id="vegetable-prev" class="control prev"></a>
+            <a id="vegetable-next" class="control next"></a>
         </div>
+    </div>
 </div>
 
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="../public/assets/js/script.js"></script>
 <script src="../public/assets/js/index.js"></script>
 <script src="../public/assets/js/cart.js"></script>
 
