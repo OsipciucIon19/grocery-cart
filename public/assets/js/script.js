@@ -3,6 +3,12 @@ const menuButton = document.querySelector(".menu-button"),
     navBarLinks = document.querySelector(".navbar-links"),
     buttons = document.getElementsByClassName("navbar-item");
 
+const Utils = {
+    menuButton: document.querySelector(".menu-button"),
+    navBarLinks: document.querySelector(".navbar-links"),
+    buttons: document.getElementsByClassName("navbar-item"),
+}
+
 menuButton.addEventListener("click", function () {
     const mainContainer = document.querySelector(".main-container"),
         crudForm = document.querySelector(".crud-form"),

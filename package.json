@@ -1,0 +1,22 @@
+{
+  "name": "grocery-cart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OsipciucIon19/grocery-cart.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OsipciucIon19/grocery-cart/issues"
+  },
+  "homepage": "https://github.com/OsipciucIon19/grocery-cart#readme",
+  "dependencies": {
+    "webpack": "^5.47.0"
+  }
+}
