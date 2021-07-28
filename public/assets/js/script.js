@@ -1,14 +1,17 @@
 let flag = 0;
-const resetButton = document.getElementById("search-reset"),
-    input = document.getElementById("search-input"),
-    menuButton = document.querySelector(".menu-button"),
-    navBarLinks = document.querySelector(".navbar-links");
+const menuButton = document.querySelector(".menu-button"),
+    navBarLinks = document.querySelector(".navbar-links"),
+    buttons = document.getElementsByClassName("navbar-item");
 
 menuButton.addEventListener("click", function () {
+    const mainContainer = document.querySelector(".main-container"),
+        crudForm = document.querySelector(".crud-form"),
+        productList = document.querySelector(".product-list"),
+        totalPrice = document.querySelector("#total"),
+        cartList = document.querySelector(".cart-list");
 
     menuButton.classList.toggle("menu-toggle");
     document.querySelector("i").classList.toggle("bi-x-lg");
-
 
     if (navBarLinks.style.display !== "none") {
         navBarLinks.style.display = "none";
@@ -17,12 +20,6 @@ menuButton.addEventListener("click", function () {
     }
 
     flag++;
-
-    const mainContainer = document.querySelector(".main-container"),
-        crudForm = document.querySelector(".crud-form"),
-        productList = document.querySelector(".product-list"),
-        totalPrice = document.querySelector("#total"),
-        cartList = document.querySelector(".cart-list");
 
     if (flag % 2 === 0) {
 
@@ -76,11 +73,8 @@ function createRipple(event) {
     if (ripple) {
         ripple.remove();
     }
-
     button.appendChild(circle);
 }
-
-const buttons = document.getElementsByClassName("navbar-item");
 
 for (const button of buttons) {
     button.addEventListener("click", createRipple);

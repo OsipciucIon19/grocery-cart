@@ -3,7 +3,9 @@ let fruitList = [],
 
 const productList = JSON.parse(window.localStorage.getItem('productList')),
     noProducts = document.getElementsByClassName("no-products"),
-    searchBtn = document.getElementById("search-button");
+    searchBtn = document.getElementById("search-button"),
+    resetButton = document.getElementById("search-reset"),
+    input = document.getElementById("search-input");
 
 const fruitSlider = document.getElementById('fruit-slider'),
     fruitSliderItems = document.getElementById('fruit-slider-items'),
@@ -14,23 +16,30 @@ const fruitSlider = document.getElementById('fruit-slider'),
     vegetablePrev = document.getElementById('vegetable-prev'),
     vegetableNext = document.getElementById('vegetable-next');
 
-for (let i = 0; i < productList.length; i++) {
-    if (productList[i].category === "fruits") {
-        fruitList.push(productList[i]);
-    } else {
-        vegetableList.push(productList[i]);
+
+function init() {
+    for (let i = 0; i < productList.length; i++) {
+        if (productList[i].category === "fruits") {
+            fruitList.push(productList[i]);
+        } else {
+            vegetableList.push(productList[i]);
+        }
     }
-}
-
-checkExistentProducts(fruitList, vegetableList);
-
-searchBtn.onclick = () => {
-    document.querySelectorAll(".slide").forEach((slide) => {
-        slide.remove();
-    }) ;
 
     checkExistentProducts(fruitList, vegetableList);
-};
+
+    searchBtn.onclick = () => {
+        document.querySelectorAll(".slide").forEach((slide) => {
+            slide.remove();
+        }) ;
+
+        checkExistentProducts(fruitList, vegetableList);
+    };
+
+    resetButton.addEventListener("click", function () {
+        resetButton.style.display = "none";
+    });
+}
 
 function checkExistentProducts(fruitList, vegetableList) {
     let isPresent;
@@ -220,6 +229,4 @@ input.addEventListener("keyup", function (e) {
     }
 });
 
-resetButton.addEventListener("click", function () {
-    resetButton.style.display = "none";
-});
+init();
