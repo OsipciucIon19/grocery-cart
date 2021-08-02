@@ -2,7 +2,8 @@
   "name": "grocery-cart",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
+  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +18,12 @@
   },
   "homepage": "https://github.com/OsipciucIon19/grocery-cart#readme",
   "dependencies": {
+    "html-webpack-plugin": "^5.3.2",
+    "lodash": "^4.17.21",
+    "uuid": "^8.3.2",
     "webpack": "^5.47.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.7.2"
   }
 }

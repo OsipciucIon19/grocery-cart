@@ -1,8 +1,7 @@
 let fruitList = [],
     vegetableList = [];
 
-const productList = JSON.parse(window.localStorage.getItem('productList')),
-    noProducts = document.getElementsByClassName("no-products"),
+let noProducts = document.getElementsByClassName("no-products"),
     searchBtn = document.getElementById("search-button"),
     resetButton = document.getElementById("search-reset"),
     input = document.getElementById("search-input");
@@ -18,6 +17,13 @@ const fruitSlider = document.getElementById('fruit-slider'),
 
 
 function init() {
+    if (window.localStorage.getItem('productList')) {
+        productList = JSON.parse(window.localStorage.getItem('productList'));
+    } else {
+        productList = [];
+    }
+
+    console.log(productList);
     for (let i = 0; i < productList.length; i++) {
         if (productList[i].category === "fruits") {
             fruitList.push(productList[i]);
@@ -31,7 +37,7 @@ function init() {
     searchBtn.onclick = () => {
         document.querySelectorAll(".slide").forEach((slide) => {
             slide.remove();
-        }) ;
+        });
 
         checkExistentProducts(fruitList, vegetableList);
     };
@@ -218,15 +224,5 @@ function slide(slider, sliderItems, prev, next) {
         allowShift = true;
     }
 }
-
-input.addEventListener("keyup", function (e) {
-    if (input.value.length > 0) {
-        resetButton.style.display = "block";
-    }
-
-    if ((e.key === "8" || e.key === "46") && input.value.length === 0) {
-        resetButton.style.display = "none";
-    }
-});
 
 init();

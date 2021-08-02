@@ -6,6 +6,21 @@ let lastId = 0,
     updateIcon,
     productList;
 
+class Product {
+    constructor(id, name, price, category, description, image) {
+        this.productId = id;
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.description = description;
+        this.image = image;
+    }
+}
+
+// const prod = new Product(1, "asd", 12, "asdasd", "asdad");
+//
+// prod.productId = 123;
+
 function init() {
     if (window.localStorage.getItem('productList')) {
         productList = JSON.parse(window.localStorage.getItem('productList'));
@@ -32,14 +47,15 @@ function showList() {
 }
 
 function saveProduct(event) {
-    const product = {
-        productId: lastId,
-        name: document.getElementById("product-name").value,
-        price: document.getElementById("product-price").value,
-        category: document.getElementById("product-category").value,
-        description: document.getElementById("product-description").value,
-        image: `../public/assets/images/products/${document.getElementById("product-image").value}`,
-    };
+    const product = new Product(
+        lastId,
+        document.getElementById("product-name").value,
+        document.getElementById("product-price").value,
+        document.getElementById("product-category").value,
+        document.getElementById("product-description").value,
+        `../public/assets/images/products/${document.getElementById("product-image").value}`
+    );
+
     productList.push(product);
     syncProduct();
     addProductToList(product);
@@ -82,19 +98,20 @@ function updateProduct(event) {
         pos = findProduct(productId).pos,
         modal = document.getElementById("modal"),
         btn = document.getElementById(productTag.id),
-        span = document.getElementsByClassName("close")[0];
+        span = document.getElementsByClassName("close")[0],
+        modalOverlay = document.getElementById("modal-overlay");
 
-    $(btn).click(function () {
-        $('#modal-overlay').show().addClass('modal-open');
-    });
+    btn.onclick = () => {
+        modalOverlay.className = "modal-open";
+        modalOverlay.style.display = "block";
+    };
 
-    $(span).click(function () {
-        var elem = $('#modal-overlay');
-        elem.removeClass('modal-open');
+    span.onclick = () => {
+        modalOverlay.className = "";
         setTimeout(function () {
-            elem.hide();
+            modalOverlay.style.display = "none";
         }, 200);
-    });
+    };
 
     if (productToUpdate) {
         let productName = document.getElementById("update-name"),
